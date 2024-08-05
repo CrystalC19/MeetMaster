@@ -1,0 +1,6 @@
+#map {
+  height: 500px; /* Adjust the height as needed */
+  width: 80%; /* Adjust the width as needed, e.g., 80% of the viewport width */
+  border: 1px solid #ccc; /* Optional: Add a border around the map */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow for better appearance */
+}
