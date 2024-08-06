@@ -1,46 +1,28 @@
-const express = require('express');
+// server/index.js
 
-const path = require('path');
-const { typeDefs, resolvers } = require('./schemas');
-const db = require('./config/connection');
-const { ApolloServer } = require('@apollo/server');
-const { expressMiddleware } = require('@apollo/server/express4');
+const express = require('express');
+const { ApolloServer } = require('apollo-server-express');
+const dotenv = require('dotenv');
+const connectDB = require('./config/db');
+const { typeDefs, resolvers } = require('./graphql');
+const authRoutes = require('./routes/authRoutes');
+const eventRoutes = require('./routes/eventRoutes');
+
+dotenv.config(); // Load environment variables from .env file
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+connectDB();
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
+app.use(express.json());
+
+const server = new ApolloServer({ typeDefs, resolvers });
+await server.start();
+server.applyMiddleware({ app });
+
+app.use('/api/auth', authRoutes);
+app.use('/api', eventRoutes);
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
-
-const startApolloServer = async () => {
-  await server.start();
-
-  app.use(express.urlencoded({ extended: false }));
-  app.use(express.json());
-
-  // Use Apollo middleware before static files middleware
-  app.use('/graphql', expressMiddleware(server));
-
-  // Serve static files in both development and production
-  const staticPath = path.join(__dirname, '../client/dist');
-  console.log('Serving static files from:', staticPath);
-
-  app.use(express.static(staticPath));
-
-  app.get('*', (req, res) => {
-    const indexPath = path.join(staticPath, 'index.html');
-    console.log('Sending index.html from:', indexPath);
-    res.sendFile(indexPath);
-  });
-
-  db.once('open', () => {
-    app.listen(PORT, () => {
-      console.log(`API server running on port ${PORT}!`);
-      console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
-    });
-  });
-};
-
-startApolloServer();
