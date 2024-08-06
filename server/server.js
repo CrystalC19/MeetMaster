@@ -1,4 +1,5 @@
 const express = require('express');
+
 const path = require('path');
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
