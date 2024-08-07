@@ -14,8 +14,6 @@ const Home = () => {
         colSpan={2}
         rowSpan={2}
         bg="papayawhip"
-        borderRadius="md"
-        boxShadow="md"
         display="flex"
         flexDirection="column"
         alignItems="center"
@@ -35,8 +33,6 @@ const Home = () => {
       <GridItem
         colSpan={2}
         bg="papayawhip"
-        borderRadius="md"
-        boxShadow="md"
         display="flex"
         alignItems="center"
         justifyContent="center"
@@ -48,8 +44,6 @@ const Home = () => {
       <GridItem
         colSpan={2}
         bg="tomato"
-        borderRadius="md"
-        boxShadow="md"
         display="flex"
         alignItems="center"
         justifyContent="center"
