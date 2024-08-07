@@ -36,6 +36,7 @@ function App() {
           <Outlet />
 
           <PaymentElement />
+          
         </main>
         
         <Footer />
