@@ -1,5 +1,4 @@
 //mongoose schema for user data
-
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
