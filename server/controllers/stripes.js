@@ -1,19 +1,22 @@
-import {Elements} from '@stripe/react-stripe-js';
-import {loadStripe} from '@stripe/stripe-js';
+const express = require('express');
+const router = express.Router();
+const stripe = require('stripe')(process.env.sk_test_51PkaosBQXcWOHffQsKH01ZVJ0zGBA5yeFDwxiJfDRx8Yt5keO102fhKWitPVx9Ov9Ha0TlP4rj7QRmTJLAFgM9qU00yx4cZ7WR);  // Ensure your Stripe secret key is in your environment variables
 
-// Make sure to call `loadStripe` outside of a component’s render to avoid
-// recreating the `Stripe` object on every render.
-const stripePromise = loadStripe('pk_test_51PkaosBQXcWOHffQHW9QTb6hsvDwhuY77FOEWIrrUaaxzmo1hEHzkuCLX9Zyp5LsFImaFYl9RP2tHorUCR9Oa5Db00qLa3iHzF');
+// Route to handle POST request for payment
+router.post('/charge', async (req, res) => {
+    try {
+        const { amount, source } = req.body;
+        const charge = await stripe.charges.create({
+            amount: amount,  // Charge amount in cents
+            currency: 'usd',
+            source: source,
+            description: 'Sample Charge'
+        });
 
-export default function App() {
-  const options = {
-    // passing the client secret obtained from the server
-    clientSecret: '{{CLIENT_SECRET}}',
-  };
+        res.json(charge);
+    } catch (error) {
+        res.status(500).json({ error: error.toString() });
+    }
+});
 
-  return (
-    <Elements stripe={stripePromise} options={options}>
-      <CheckoutForm />
-    </Elements>
-  );
-};
+module.exports = router;
