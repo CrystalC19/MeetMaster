@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const stripe = require('stripe')(process.env.sk_test_51PkaosBQXcWOHffQsKH01ZVJ0zGBA5yeFDwxiJfDRx8Yt5keO102fhKWitPVx9Ov9Ha0TlP4rj7QRmTJLAFgM9qU00yx4cZ7WR);  // Ensure your Stripe secret key is in your environment variables
+const stripe = require('stripe')(process.env.pk_test_51PkaosBQXcWOHffQHW9QTb6hsvDwhuY77FOEWIrrUaaxzmo1hEHzkuCLX9Zyp5LsFImaFYl9RP2tHorUCR9Oa5Db00qLa3iHzF);  // Ensure your Stripe secret key is in your environment variables
 
 // Route to handle POST request for payment
 router.post('/charge', async (req, res) => {
