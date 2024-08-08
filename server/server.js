@@ -10,7 +10,7 @@ const { expressMiddleware } = require('@apollo/server/express4');
 
 const app = express();
 
-const stripePromise = loadStripe('pk_test_51PkaosBQXcWOHffQHW9QTb6hsvDwhuY77FOEWIrrUaaxzmo1hEHzkuCLX9Zyp5LsFImaFYl9RP2tHorUCR9Oa5Db00qLa3iHzF');
+const stripePromise = loadStripe('addtestkey');
 
 const PORT = process.env.PORT || 3001;
 
