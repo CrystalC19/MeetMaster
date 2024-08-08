@@ -1,5 +1,7 @@
 import React from 'react';
 import { Grid, GridItem, Text } from '@chakra-ui/react';
+//Added the Cart
+import Cart from "../components/Cart";
 
 const Home = () => {
   return (
@@ -51,6 +53,7 @@ const Home = () => {
           Selected Listing
         </Text>
       </GridItem>
+      <Cart />
     </Grid>
   );
 };

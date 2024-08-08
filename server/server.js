@@ -1,3 +1,5 @@
+import { loadStripe } from '@stripe/stripe-js';
+
 const express = require('express');
 
 const path = require('path');
@@ -7,7 +9,8 @@ const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
 
 const app = express();
-const stripe = require("stripe")('sk_test_51PkaosBQXcWOHffQsKH01ZVJ0zGBA5yeFDwxiJfDRx8Yt5keO102fhKWitPVx9Ov9Ha0TlP4rj7QRmTJLAFgM9qU00yx4cZ7WR');
+
+const stripePromise = loadStripe('sk_test_51PkaosBQXcWOHffQsKH01ZVJ0zGBA5yeFDwxiJfDRx8Yt5keO102fhKsk_test_51PkaosBQXcWOHffQsKH01ZVJ0zGBA5yeFDwxiJfDRx8Yt5keO102fhKWitPVx9Ov9Ha0TlP4rj7QRmTJLAFgM9qU00yx4cZ7WR');
 
 const PORT = process.env.PORT || 3001;
 
@@ -79,4 +82,3 @@ app.post("/create-payment-intent", async (req, res) => {
 });
 
 
-app.listen(4242, () => console.log("Node server listening on port 3001!"));
