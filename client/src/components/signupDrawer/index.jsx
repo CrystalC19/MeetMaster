@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { CREATE_USER } from '../../utils/mutations';
 import {
   Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerOverlay,
   DrawerContent, DrawerCloseButton, Button, Input, useDisclosure
@@ -7,6 +9,20 @@ import {
 const SignupDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
+  
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [createUser, { data, loading, error }] = useMutation(CREATE_USER);
+
+  const handleSubmit = async () => {
+    try {
+      const response = await createUser({ variables: { email, password } });
+      console.log('Registration successful', response);
+      onClose();
+    } catch (e) {
+      console.error('Registration failed', e);
+    }
+  };
 
   return (
     <>
@@ -24,15 +40,27 @@ const SignupDrawer = () => {
           <DrawerCloseButton />
           <DrawerHeader>Sign Up</DrawerHeader>
           <DrawerBody>
-            <Input placeholder="Username" mb={3} />
-            <Input placeholder="Email" type="email" mb={3} />
-            <Input placeholder="Password" type="password" />
+            <Input
+              placeholder="Email"
+              type="email"
+              mb={3}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Input
+              placeholder="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </DrawerBody>
           <DrawerFooter>
             <Button variant="outline" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button colorScheme="blue">Submit</Button>
+            <Button colorScheme="blue" onClick={handleSubmit}>
+              Submit
+            </Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
