@@ -10,7 +10,7 @@ const { expressMiddleware } = require('@apollo/server/express4');
 
 const app = express();
 
-const stripePromise = loadStripe('sk_test_51PkaosBQXcWOHffQsKH01ZVJ0zGBA5yeFDwxiJfDRx8Yt5keO102fhKsk_test_51PkaosBQXcWOHffQsKH01ZVJ0zGBA5yeFDwxiJfDRx8Yt5keO102fhKWitPVx9Ov9Ha0TlP4rj7QRmTJLAFgM9qU00yx4cZ7WR');
+const stripePromise = loadStripe('pk_test_51PkaosBQXcWOHffQHW9QTb6hsvDwhuY77FOEWIrrUaaxzmo1hEHzkuCLX9Zyp5LsFImaFYl9RP2tHorUCR9Oa5Db00qLa3iHzF');
 
 const PORT = process.env.PORT || 3001;
 
