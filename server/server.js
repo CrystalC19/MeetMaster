@@ -1,19 +1,38 @@
 const express = require('express');
-
 const path = require('path');
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
+const jwt = require('jsonwebtoken'); // Import jsonwebtoken
+const User = require('./models/User'); // Import User model
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Create an Apollo Server instance
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  // Define the context for the Apollo Server
+  context: async ({ req }) => {
+    const token = req.headers.authorization || '';
+    if (token) {
+      try {
+        // Verify the token and get user id
+        const { id } = jwt.verify(token, 'your_secret_key');
+        // Fetch the user from the database
+        const user = await User.findById(id);
+        return { user };
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    return {};
+  },
 });
 
+// Start Apollo Server and set up middleware
 const startApolloServer = async () => {
   await server.start();
 
@@ -44,3 +63,4 @@ const startApolloServer = async () => {
 };
 
 startApolloServer();
+

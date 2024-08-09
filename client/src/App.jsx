@@ -1,13 +1,11 @@
-// src/App.jsx
 import React from 'react';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { Outlet, useLocation } from 'react-router-dom';
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, Box, Flex } from '@chakra-ui/react';
 import Header from './components/header';
 import Navbar from './components/navbar';
 import Footer from './components/footer';
 import './App.css';
-
 
 // Create an instance of ApolloClient
 const client = new ApolloClient({
@@ -19,19 +17,21 @@ function App() {
   const location = useLocation().pathname;
 
   return (
-    <ChakraProvider >
+    <ChakraProvider>
       <ApolloProvider client={client}>
-
-        <Header>
-          <Navbar location={location} />
-        </Header>
-
-        <main>
-          <Outlet />
-        </main>
-        
-        <Footer />
-      
+        <Flex direction="column" height="100vh">
+          <Box height="8vh">
+            <Header>
+              <Navbar location={location} />
+            </Header>
+          </Box>
+          <Box flex="1" overflow="auto">
+            <Outlet />
+          </Box>
+          <Box height="7vh">
+            <Footer />
+          </Box>
+        </Flex>
       </ApolloProvider>
     </ChakraProvider>
   );

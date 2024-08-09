@@ -4,7 +4,7 @@ import { Box, Flex, Heading } from '@chakra-ui/react';
 
 const Header = ({ children }) => {
   return (
-    <Box as="header" bg="tomato" color="white" mb={2} height="8vh" py={3} px={2}>
+    <Box as="header" bg="tomato" color="white" height="8vh" py={3} px={2}>
       <Flex
         className="container"
         flexDirection={{ base: 'column', lg: 'row' }}
