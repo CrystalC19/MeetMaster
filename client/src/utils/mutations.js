@@ -7,6 +7,7 @@ export const CREATE_USER = gql`
       user {
         _id
         email
+        password
       }
     }
   }

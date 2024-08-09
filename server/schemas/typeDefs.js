@@ -4,6 +4,7 @@ const typeDefs = gql`
   type User {
     _id: ID!
     email: String!
+    password: String!
     events: [Event]!
   }
 
@@ -23,6 +24,11 @@ const typeDefs = gql`
     events: [Event]
     event(id: ID!): Event
   }
+    
+  type Auth {
+    token: String
+    user: User
+  }
 
   type Mutation {
     createUser(email: String!, password: String!): Auth
@@ -30,10 +36,6 @@ const typeDefs = gql`
     createEvent(title: String!, description: String, price: Float, address: String, image: String!): Event
   }
 
-  type Auth {
-    token: String
-    user: User
-  }
 `;
 
 module.exports = typeDefs;

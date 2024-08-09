@@ -20,7 +20,7 @@ const SignupDrawer = () => {
       console.log('Registration successful', response);
       onClose();
     } catch (e) {
-      console.error('Registration failed', e);
+      console.error('error', e);
     }
   };
 
