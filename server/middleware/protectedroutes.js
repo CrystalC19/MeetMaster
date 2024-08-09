@@ -1,8 +1,4 @@
 // To access protected routes, send the JWT in the Authorization header:
-
-
-
-
 import axios from 'axios';
 
 const fetchProtectedData = async () => {

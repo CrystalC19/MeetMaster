@@ -1,35 +1,38 @@
 import React from 'react';
 import { Grid, GridItem, Text } from '@chakra-ui/react';
+import EventList from './eventList/index.jsx';
 
 const Home = () => {
   return (
     <Grid
-      className="css-1mvw6hw"
       templateRows="repeat(2, 1fr)"
       templateColumns="repeat(4, 1fr)"
-      gap={2}
-      height={'82vh'}
-      p={2}
+      gap={0}
+      height="100%"
     >
       <GridItem
         colSpan={2}
         rowSpan={2}
         bg="papayawhip"
-        borderRadius="md"
-        boxShadow="md"
         display="flex"
+        flexDirection="column"
         alignItems="center"
-        justifyContent="center"
+        justifyContent="flex-start"
+        overflowY="auto"
+        p={2}
+        css={{
+          '&::-webkit-scrollbar': {
+            display: 'none',
+          },
+          '-ms-overflow-style': 'none',  /* Internet Explorer 10+ */
+          'scrollbar-width': 'none',  /* Firefox */
+        }}
       >
-        <Text color="black" fontSize="lg" fontWeight="bold">
-          Listing Cards
-        </Text>
+        <EventList />
       </GridItem>
       <GridItem
         colSpan={2}
         bg="papayawhip"
-        borderRadius="md"
-        boxShadow="md"
         display="flex"
         alignItems="center"
         justifyContent="center"
@@ -41,8 +44,6 @@ const Home = () => {
       <GridItem
         colSpan={2}
         bg="tomato"
-        borderRadius="md"
-        boxShadow="md"
         display="flex"
         alignItems="center"
         justifyContent="center"
