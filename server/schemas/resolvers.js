@@ -1,14 +1,16 @@
 const { User, Event } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const resolvers = {
   Query: {
     users: async () => {
-      return User.find().populate('events');
+      return User.find(); //.populate('events');
     },
     user: async (parent, { id }) => {
-      return User.findById(id).populate('events');
+      return User.findById(id); //.populate('events');
     },
     events: async () => {
       return Event.find().populate('user');

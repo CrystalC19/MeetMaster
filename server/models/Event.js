@@ -18,11 +18,11 @@ const eventSchema = new Schema({
     type: String, // URL to the image
     required: true,
   },
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-  },
+  // user: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'User',
+  //   required: true,
+  // },
 });
 
 const Event = model('Event', eventSchema);

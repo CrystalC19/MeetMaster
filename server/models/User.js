@@ -11,12 +11,12 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  savedEvents: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Event',
-    },
-  ],
+  // savedEvents: [
+  //   {
+  //     type: Schema.Types.ObjectId,
+  //     ref: 'Event',
+  //   },
+  // ],
 });
 
 // Pre-save middleware to hash the password before saving

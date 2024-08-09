@@ -5,7 +5,6 @@ const typeDefs = gql`
     _id: ID!
     email: String!
     password: String!
-    events: [Event]!
   }
 
   type Event {
@@ -24,7 +23,7 @@ const typeDefs = gql`
     events: [Event]
     event(id: ID!): Event
   }
-    
+
   type Auth {
     token: String
     user: User
