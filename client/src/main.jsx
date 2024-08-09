@@ -5,6 +5,7 @@ import App from './App.jsx';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './components/home/index.jsx';
+import MapPage from './pages/MapPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
         path: 'home',
         element: <Home />,
       },
+      {
+        path: 'map',
+        element:<MapPage />,
+      }
     ],
   },
 ]);
