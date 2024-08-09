@@ -4,6 +4,7 @@ import {
   ButtonGroup, Button, Accordion, AccordionItem, AccordionButton,
   AccordionPanel, AccordionIcon, Card, CardBody
 } from '@chakra-ui/react';
+import './eventList.css'
 
 const eventList = [
   // Example data

@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import './map.css';
 
-const containerStyle = {
-  width: '100%',
-  height: '400px'
-};
+
 
 const center = {
   lat: -3.745,
   lng: -38.523
+};
+
+const options = {
+  fullscreenControl: false, 
+  zoomControl: true,
+  mapTypeControl: false, 
+  streetViewControl: false, 
+  scaleControl: false,
+  rotateControl: false,
+  gestureHandling: 'auto', 
 };
 
 function MapComponent() {
@@ -34,12 +42,13 @@ function MapComponent() {
   };
 
   return (
-    <div>
+    <div className="map-container">
       <LoadScript googleMapsApiKey="AIzaSyDCexQVc-38W5UbjuoHlvUkaQXvr4Vv3Dc">
         <GoogleMap
-          mapContainerStyle={containerStyle}
+          mapContainerClassName="google-map"
           center={center}
           zoom={10}
+          options={options}
         >
           {locations.map((location) => (
             <Marker
@@ -64,14 +73,6 @@ function MapComponent() {
           ))}
         </GoogleMap>
       </LoadScript>
-
-      <input
-        type="text"
-        value={address}
-        onChange={(e) => setAddress(e.target.value)}
-        placeholder="Enter an address"
-      />
-      <button onClick={addLocation}>Add Event</button>
     </div>
   );
 }

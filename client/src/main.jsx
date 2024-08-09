@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './components/home/index.jsx';
-import MapPage from './pages/MapPage.jsx';
+// import MapPage from './pages/MapPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -18,10 +18,6 @@ const router = createBrowserRouter([
         path: 'home',
         element: <Home />,
       },
-      {
-        path: 'map',
-        element:<MapPage />,
-      }
     ],
   },
 ]);
