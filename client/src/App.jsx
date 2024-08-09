@@ -9,7 +9,7 @@ import './App.css';
 
 // Create an instance of ApolloClient
 const client = new ApolloClient({
-  uri: '/graphql',
+  uri: 'http://localhost:3000/graphql',
   cache: new InMemoryCache(),
 });
 
