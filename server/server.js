@@ -6,6 +6,7 @@ const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
 const jwt = require('jsonwebtoken'); // Import jsonwebtoken
 const User = require('./models/User'); // Import User model
+const authMiddleware = require ('./middleware/authMiddleware')
 
 const app = express();
 const PORT = process.env.PORT || 3001;
