@@ -1,14 +1,14 @@
 /* src/components/footer/footer.css */
+
 .footer {
-    background-color: var(--light);
-    color: white;
-    height: 7vh; /* Ensure height is consistent with viewport */
-    padding: 16px;
-  }
-  
-  .footer .icon {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-  }
-  
+  background-color: var(--dark);
+  color: white;
+  height: 7vh; /* Ensure height is consistent with viewport */
+  padding: 16px;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}

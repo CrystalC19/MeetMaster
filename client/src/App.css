@@ -1,10 +1,5 @@
 /* app.css */
-#root {
-  min-height: 100vh;
-  height: 100%;
-  min-width: 100vw;
-  margin: 0 auto;
-  text-align: center;
+#root {  text-align: center;
   display: flex;
   flex-direction: column;
   --accent: #e1e5f2;

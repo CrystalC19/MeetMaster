@@ -1,7 +1,5 @@
 // Login and Store JWT
 //In your login component, make a request to the backend and store the JWT in local storage or context:
-
-
 import React, { useState } from 'react';
 import axios from 'axios';
 
