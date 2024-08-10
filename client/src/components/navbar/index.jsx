@@ -6,7 +6,7 @@ import './navbar.css';
 
 const Navbar = () => {
   return (
-    <Box py={4} color="white">
+    <Box color="white">
       <Flex justify="center">
         <Box mx={4}>
           <LoginDrawer />

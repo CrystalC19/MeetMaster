@@ -1,0 +1,24 @@
+/* src/components/header/header.css */
+.header {
+    background-color: var(--light);
+    color: white;
+    height: 8vh; /* Ensure height is consistent with viewport */
+    padding: 3px 2px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  @media (min-width: 1024px) {
+    .container {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+  

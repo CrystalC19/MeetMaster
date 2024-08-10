@@ -4,6 +4,7 @@ import {
   ButtonGroup, Button, Accordion, AccordionItem, AccordionButton,
   AccordionPanel, AccordionIcon, Card, CardBody
 } from '@chakra-ui/react';
+import './eventlist.css';
 
 const eventList = [
   // Example data
@@ -28,10 +29,10 @@ const eventList = [
 
 const EventList = () => {
   return (
-    <VStack spacing={4} width="100%">
+    <VStack className="eventList" spacing={4} width="100%">
       {eventList.map(event => (
-        <Card key={event.id} width="100%">
-          <CardBody p={0}>
+        <Card className="card" key={event.id}>
+          <CardBody className="cardBody">
             {/* Image Section */}
             <Image
               src={event.imageUrl}
