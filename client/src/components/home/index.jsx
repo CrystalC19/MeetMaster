@@ -9,8 +9,8 @@ const Home = () => {
     <Grid
       templateRows="repeat(2, 1fr)"
       templateColumns="repeat(4, 1fr)"
-      gap={0}
-      height="100%"
+      gap={4} // Adjust gap if needed
+      height="100vh"
     >
       <GridItem
         colSpan={2}
