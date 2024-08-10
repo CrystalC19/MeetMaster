@@ -1,6 +1,8 @@
 import React from 'react';
 import { Grid, GridItem, Text } from '@chakra-ui/react';
 import EventList from './eventList/index.jsx';
+import Map from './map/index.jsx';
+import './home.css';
 
 const Home = () => {
   return (
@@ -13,33 +15,15 @@ const Home = () => {
       <GridItem
         colSpan={2}
         rowSpan={2}
-        bg="papayawhip"
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="flex-start"
-        overflowY="auto"
-        p={2}
-        css={{
-          '&::-webkit-scrollbar': {
-            display: 'none',
-          },
-          '-ms-overflow-style': 'none',  /* Internet Explorer 10+ */
-          'scrollbar-width': 'none',  /* Firefox */
-        }}
+        className="eventListContainer"
       >
         <EventList />
       </GridItem>
       <GridItem
         colSpan={2}
-        bg="papayawhip"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
+        className="mapContainer"
       >
-        <Text color="black" fontSize="lg" fontWeight="bold">
-          Map
-        </Text>
+        <Map />
       </GridItem>
       <GridItem
         colSpan={2}
