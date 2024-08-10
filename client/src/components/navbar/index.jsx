@@ -1,20 +1,24 @@
-// src/components/navbar/index.jsx
 import React from 'react';
-import { Flex, Link, Box } from '@chakra-ui/react';
+import { Flex, Box, Button } from '@chakra-ui/react';
+import LoginDrawer from '../loginDrawer';
+import SignupDrawer from '../signupDrawer';
+import './navbar.css'; 
 
 const Navbar = () => {
   return (
-    <Box py={4} color="white">
+    <Box color="white">
       <Flex justify="center">
-        <Link href="#" mx={4} color="white">
-          Login
-        </Link>
-        <Link href="#" mx={4} color="white">
-          Sign Up
-        </Link>
-        <Link href="#" mx={4} color="white">
-          Log Out
-        </Link>
+        <Box mx={4}>
+          <LoginDrawer />
+        </Box>
+        <Box mx={4}>
+          <SignupDrawer />
+        </Box>
+        <Box mx={4}>
+          <Button className="navbar-button" onClick={() => alert('Logged out')}>
+            Log Out
+          </Button>
+        </Box>
       </Flex>
     </Box>
   );

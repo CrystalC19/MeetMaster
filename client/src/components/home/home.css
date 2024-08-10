@@ -1,0 +1,30 @@
+/* src/components/home/home.css */
+
+/* Adjust for header and footer height plus any padding */
+.eventListContainer {
+  overflow-y: auto;
+  padding: 10px; /* Ensure padding does not affect height excessively */
+  height: calc(100vh - 8vh - 7vh - 20px); /* Subtract header height, footer height, and padding */
+}
+
+.eventListContainer::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+.eventListContainer {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+.eventList {
+  height: 100%;
+}
+
+.mapContainer {
+  margin: 10px;
+  border-radius: 25px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden; /* To ensure the border radius affects the content inside */
+  height: calc(100% - 20px); /* Adjust height to fit within the GridItem */
+}
