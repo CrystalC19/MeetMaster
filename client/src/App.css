@@ -2,12 +2,16 @@
 #root {
   min-height: 100vh;
   height: 100%;
-  /* Ensure it takes up the full height */
   min-width: 100vw;
   margin: 0 auto;
   text-align: center;
   display: flex;
   flex-direction: column;
+  --accent: #e1e5f2;
+  --light: #bfdbf7;
+  --med: #22899e;
+  --dark: #022b3a;
+  --text-color: #000000;
 }
 
 main {
