@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import ProductItem from './productItem';
+import ProductItem from './roductItem';
 import { useStoreContext } from '../../utils/GlobalState';
 import { UPDATE_PRODUCTS } from '../../utils/actions';
 import { useQuery } from '@apollo/client';
