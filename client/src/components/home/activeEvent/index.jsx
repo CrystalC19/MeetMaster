@@ -18,25 +18,16 @@ const ActiveEvent = () => {
         <CardBody>
           <Stack divider={<StackDivider />} spacing="4">
             <Box textAlign="left">
-              <Heading size="xs" textTransform="uppercase">
-                Summary
-              </Heading>
               <Text pt="2" fontSize="sm">
                 View a summary of the event details.
               </Text>
             </Box>
             <Box textAlign="left">
-              <Heading size="xs" textTransform="uppercase">
-                Overview
-              </Heading>
               <Text pt="2" fontSize="sm">
                 Check out the overview of the event.
               </Text>
             </Box>
             <Box textAlign="left">
-              <Heading size="xs" textTransform="uppercase">
-                Analysis
-              </Heading>
               <Text pt="2" fontSize="sm">
                 See a detailed analysis of the event.
               </Text>
