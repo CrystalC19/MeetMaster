@@ -6,24 +6,28 @@ const jwt = require('jsonwebtoken');
 
 const resolvers = {
   Query: {
-    users: async () => {
+    // returns list of all users
+    listUsers: async () => {
       return User.find(); //.populate('events');
     },
-    user: async (parent, { id }) => {
+    //returns user by ID
+    getUser: async (parent, { id }) => {
       return User.findById(id); //.populate('events');
     },
+    //returns list of all events
     events: async () => {
       return Event.find().populate('user');
     },
+    // returns event by ID 
     event: async (parent, { id }) => {
       return Event.findById(id).populate('user');
     },
   },
   Mutation: {
-    createUser: async (_, { email, password }) => {
+    createUser: async (_, {name, email, password }) => {
         try {
           const hashedPassword = await bcrypt.hash(password, 10);
-          const user = new User({ email, password: hashedPassword });
+          const user = new User({name, email, password: hashedPassword });
           await user.save();
           
           const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
@@ -33,12 +37,17 @@ const resolvers = {
         }
       },
     login: async (parent, { email, password }) => {
+      //console.log debug
+      console.log('Attempting to login with email:',email);
       const user = await User.findOne({ email });
       if (!user) {
         throw new AuthenticationError('No user found with this email address');
       }
 
-      const correctPw = await user.isCorrectPassword(password);
+      const correctPw = await user.comparePassword(password);
+      //debug
+      console.log('Password comparison result:', correctPw);
+
 
       if (!correctPw) {
         throw new AuthenticationError('Incorrect credentials');

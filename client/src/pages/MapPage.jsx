@@ -1,5 +1,5 @@
 import React from 'react';
-import MapComponent from '../components/MapComponent';
+import MapComponent from '../components/map/MapComponent';
 
 function MapPage() {
   return (

@@ -17,16 +17,15 @@ const typeDefs = gql`
     user: User!
   }
 
-  type Query {
-    users: [User]
-    user(id: ID!): User
+  type Auth {
+    token: ID!
+    user: User
+  }
+      type Query {
+    listUsers: [User]
+    getUser(userId: ID!): User
     events: [Event]
     event(id: ID!): Event
-  }
-
-  type Auth {
-    token: String
-    user: User
   }
 
   type Mutation {
