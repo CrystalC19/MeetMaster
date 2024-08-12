@@ -1,13 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import './map.css';
-
-
-
-const center = {
-  lat: -3.745,
-  lng: -38.523
-};
 
 const options = {
   fullscreenControl: false, 
@@ -19,23 +12,20 @@ const options = {
   gestureHandling: 'auto', 
 };
 
-function MapComponent() {
+function MapComponent({ selectedEventLocation }) {
+  const [center, setCenter] = useState({ lat: -3.745, lng: -38.523 });
   const [locations, setLocations] = useState([]);
-  const [address, setAddress] = useState('');
   const [activeMarker, setActiveMarker] = useState(null);
 
-  const addLocation = () => {
-    if (address) {
-      const newLocation = {
-        id: locations.length + 1,
-        lat: 32.7767 + Math.random() * 0.01,
-        lng: 96.7970 + Math.random() * 0.01,
-        address: address
-      };
-      setLocations([...locations, newLocation]);
-      setAddress('');
+  useEffect(() => {
+    if (selectedEventLocation) {
+      setCenter({
+        lat: selectedEventLocation.lat,
+        lng: selectedEventLocation.lng,
+      });
+      // Adjust zoom level to ensure it's not too far out
     }
-  };
+  }, [selectedEventLocation]);
 
   const handleMarkerClick = (marker) => {
     setActiveMarker(marker.id);
@@ -43,34 +33,32 @@ function MapComponent() {
 
   return (
     <div className="map-container">
-      <LoadScript googleMapsApiKey="AIzaSyDCexQVc-38W5UbjuoHlvUkaQXvr4Vv3Dc">
+      <LoadScript googleMapsApiKey="AIzaSyD7dokCBpYsusuyt5lOP5ZB3eaCaWV5JEM">
         <GoogleMap
           mapContainerClassName="google-map"
           center={center}
-          zoom={10}
+          zoom={15} 
           options={options}
         >
-          {locations.map((location) => (
+          {/* Add a marker for the selected event */}
+          {selectedEventLocation && (
             <Marker
-              key={location.id}
-              position={{ lat: location.lat, lng: location.lng }}
-              onClick={() => handleMarkerClick(location)}
+              position={center}
+              onClick={() => handleMarkerClick({ id: 'selectedEvent' })}
             />
-          ))}
+          )}
           
-          {locations.map((location) => (
-            activeMarker === location.id ? (
-              <InfoWindow
-                key={location.id}
-                position={{ lat: location.lat, lng: location.lng }}
-                onCloseClick={() => setActiveMarker(null)}
-              >
-                <div>
-                  <h2>{location.address}</h2>
-                </div>
-              </InfoWindow>
-            ) : null
-          ))}
+          {/* Render InfoWindow if needed */}
+          {activeMarker === 'selectedEvent' && (
+            <InfoWindow
+              position={center}
+              onCloseClick={() => setActiveMarker(null)}
+            >
+              <div>
+                <h2>Selected Event</h2>
+              </div>
+            </InfoWindow>
+          )}
         </GoogleMap>
       </LoadScript>
     </div>

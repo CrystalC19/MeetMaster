@@ -19,7 +19,7 @@ const Navbar = () => {
           <AddEvent /> {/* Add the AddEvent button */}
         </Box>
         <Box mx={4}>
-          <Button className="navbar-button" onClick={() => alert('Logged out')}>
+          <Button className="buttonColorLight" onClick={() => alert('Logged out')}>
             Log Out
           </Button>
         </Box>

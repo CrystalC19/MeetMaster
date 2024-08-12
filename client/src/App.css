@@ -4,10 +4,11 @@
   flex-direction: column;
   --accent: #e1e5f2;
   --light: #bfdbf7;
-  --med: #22899e;
+  --med: #00b4d8;
   --dark: #022b3a;
   --text-color: #000000;
 }
+
 
 main {
   flex: 1;

@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 
+// User mutations
 export const CREATE_USER = gql`
   mutation createUser($email: String!, $password: String!) {
     createUser(email: $email, password: $password) {
@@ -25,19 +26,16 @@ export const LOGIN_USER = gql`
   }
 `;
 
+// Event mutation without file upload
 export const CREATE_EVENT = gql`
-  mutation createEvent($title: String!, $description: String, $price: Float, $address: String, $image: String!) {
-    createEvent(title: $title, description: $description, price: $price, address: $address, image: $image) {
+  mutation createEvent($title: String!, $description: String!, $amount: Float!, $date: String!, $address: String!) {
+    createEvent(title: $title, description: $description, amount: $amount, date: $date, address: $address) {
       _id
       title
       description
-      price
+      amount
+      date
       address
-      image
-      user {
-        _id
-        email
-      }
     }
   }
 `;

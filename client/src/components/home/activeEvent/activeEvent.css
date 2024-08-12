@@ -29,4 +29,11 @@
   .chakra-card__body.css-1idwstw {
     padding: 10px; /* Set padding to 10px */
   }
+
+  .activeEventContent, .css-1811skr, .chakra-stack{
+    gap: 0 !important;
+  }
   
+  .chakra-card__footer, .css-1a7q9t8 {
+    padding: 5px !important;
+  }

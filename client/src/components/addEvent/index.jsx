@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   InputGroup, 
   InputLeftAddon, 
@@ -23,45 +23,38 @@ import {
   NumberIncrementStepper, 
   NumberDecrementStepper 
 } from '@chakra-ui/react';
-import './addEvent.css'; // Import the CSS file
+import { useMutation } from '@apollo/client';
+import { CREATE_EVENT } from '../../utils/mutations';
+import { QUERY_EVENTS } from '../../utils/queries'; // Import the query to fetch events
+import './addEvent.css';
 
-const AddEvent = () => {
+const AddEvent = ({ onEventCreated }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  
-  // State variables for form inputs
-  const [title, setTitle] = React.useState('');
-  const [description, setDescription] = React.useState('');
-  const [date, setDate] = React.useState('');
-  const [address, setAddress] = React.useState('');
-  const [description2, setDescription2] = React.useState('');
-  const [amount, setAmount] = React.useState('');
-  const [file, setFile] = React.useState(null); // State for file input
+  const [createEvent] = useMutation(CREATE_EVENT);
 
-  // Validation state
-  const [errors, setErrors] = React.useState({
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [date, setDate] = useState('');
+  const [address, setAddress] = useState('');
+  const [amount, setAmount] = useState('');
+  const [errors, setErrors] = useState({
     title: '',
     description: '',
     date: '',
     address: '',
-    description2: '',
     amount: '',
-    file: '', // Validation for file input
   });
 
-  // Handle form submission
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     let formIsValid = true;
     const newErrors = {
       title: '',
       description: '',
       date: '',
       address: '',
-      description2: '',
       amount: '',
-      file: '', // Validation for file input
     };
-
-    // Validation for all fields
+  
     if (!title) {
       formIsValid = false;
       newErrors.title = 'Event title is required';
@@ -78,35 +71,43 @@ const AddEvent = () => {
       formIsValid = false;
       newErrors.address = 'Address is required';
     }
-    if (!description2) {
-      formIsValid = false;
-      newErrors.description2 = 'Event description is required';
-    }
     if (amount === '') {
       formIsValid = false;
       newErrors.amount = 'Amount is required';
     }
-    if (!file) {
-      formIsValid = false;
-      newErrors.file = 'File is required'; // Validation for file input
-    }
-
+  
     setErrors(newErrors);
-
+  
     if (formIsValid) {
-      console.log('Event added:', { title, description, date, address, description2, amount, file });
-      onClose(); // Close the modal after submission
+      try {
+        const { data } = await createEvent({
+          variables: { 
+            title, 
+            description, 
+            amount: parseFloat(amount), 
+            date, 
+            address 
+          },
+          update: (cache, { data: { createEvent } }) => {
+            const { events } = cache.readQuery({ query: QUERY_EVENTS });
+            cache.writeQuery({
+              query: QUERY_EVENTS,
+              data: { events: [...events, createEvent] },
+            });
+          },
+        });
+        console.log('Event added:', data.createEvent);
+        onClose();
+        if (onEventCreated) onEventCreated(data.createEvent);
+      } catch (error) {
+        console.error('Mutation error:', error);
+      }
     }
   };
-
-  // Handle file input change
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]); // Store the selected file
-  };
-
+  
   return (
     <>
-      <Button onClick={onOpen} colorScheme="teal">
+      <Button onClick={onOpen} className='buttonColorDark'>
         Add Event
       </Button>
       <Modal
@@ -147,8 +148,9 @@ const AddEvent = () => {
               <FormControl isInvalid={!!errors.date}>
                 <FormLabel htmlFor="date">Event Date</FormLabel>
                 <Input
-                  id="date"
                   type="datetime-local"
+                  id="date"
+                  placeholder="Event Date"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
                 />
@@ -159,21 +161,11 @@ const AddEvent = () => {
                 <FormLabel htmlFor="address">Address</FormLabel>
                 <Input
                   id="address"
-                  placeholder="Address"
+                  placeholder="Event Address"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                 />
                 <FormErrorMessage>{errors.address}</FormErrorMessage>
-              </FormControl>
-
-              <FormControl isInvalid={!!errors.file}>
-                <FormLabel htmlFor="file">Upload File</FormLabel>
-                <Input
-                  id="file"
-                  type="file"
-                  onChange={handleFileChange}
-                />
-                <FormErrorMessage>{errors.file}</FormErrorMessage>
               </FormControl>
 
               <FormControl isInvalid={!!errors.amount}>
@@ -181,8 +173,8 @@ const AddEvent = () => {
                 <InputGroup>
                   <InputLeftAddon>$</InputLeftAddon>
                   <NumberInput
-                    max={50}
-                    min={10}
+                    max={1000}
+                    min={0}
                     value={amount}
                     onChange={(value) => setAmount(value)}
                     width="100%"
@@ -202,9 +194,7 @@ const AddEvent = () => {
             <Button colorScheme="blue" mr={3} onClick={handleSubmit}>
               Submit
             </Button>
-            <Button variant="ghost" onClick={onClose}>
-              Close
-            </Button>
+            <Button variant="ghost" onClick={onClose}>Cancel</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

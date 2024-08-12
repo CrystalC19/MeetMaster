@@ -6,7 +6,9 @@
 
 .card {
   width: 100%;
+  margin-bottom: 10px; /* Add margin-bottom */
 }
+
 
 /* Specific Chakra UI class overrides */
 .chakra-card.card {
