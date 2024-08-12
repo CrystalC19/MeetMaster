@@ -1,0 +1,9 @@
+/* addEvent.css */
+
+/* Ensure both GridItems are equal height */
+.grid-item {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  

@@ -10,7 +10,7 @@ const LoginDrawer = () => {
 
   return (
     <>
-      <Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
+      <Button ref={btnRef} className='buttonColorDark' onClick={onOpen}>
         Login
       </Button>
       <Drawer

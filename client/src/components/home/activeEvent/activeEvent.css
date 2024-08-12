@@ -1,0 +1,39 @@
+/* src/components/home/activeEvent/activeEvent.css */
+
+.activeEventCard {
+    height: 100%; /* Ensure the card takes up the full height of the parent GridItem */
+    display: flex;
+    flex-direction: row; /* Ensure image and content are side by side */
+  }
+  
+  .activeEventImage {
+    width: 40%; /* Set image width to 40% */
+    height: auto; /* Maintain aspect ratio */
+  }
+  
+  .activeEventContent {
+    flex: 1; /* Ensure the content area expands to fill available space */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Space out content and footer */
+    padding: 0.25rem; /* Reduce padding around content */
+    text-align: left; /* Align text to the left */
+  }
+  
+  /* Targeting the CardHeader specifically */
+  .chakra-card__header.css-1sl53ol {
+    padding: 10px; /* Set padding to 10px */
+  }
+  
+  /* Targeting the CardBody specifically */
+  .chakra-card__body.css-1idwstw {
+    padding: 10px; /* Set padding to 10px */
+  }
+
+  .activeEventContent, .css-1811skr, .chakra-stack{
+    gap: 0 !important;
+  }
+  
+  .chakra-card__footer, .css-1a7q9t8 {
+    padding: 5px !important;
+  }

@@ -2,7 +2,7 @@ import React from 'react';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { Outlet, useLocation } from 'react-router-dom';
 import { ChakraProvider, Box, Flex } from '@chakra-ui/react';
-const { createUploadLink } = require('apollo-upload-client');
+const { createUploadLink } = require('apollo-upload-client')
 
 import Header from './components/header';
 import Navbar from './components/navbar';
@@ -13,7 +13,6 @@ import './App.css';
 const client = new ApolloClient({
   uri: 'http://localhost:3001/graphql',
   cache: new InMemoryCache(),
-  link: createUploadLink(),
 });
 
 function App() {

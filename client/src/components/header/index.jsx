@@ -1,7 +1,6 @@
-// src/components/header/index.jsx
 import { Link } from 'react-router-dom';
 import { Box, Flex, Heading } from '@chakra-ui/react';
-import './header.css'; // Ensure this path is correct
+import './header.css';
 
 const Header = ({ children }) => {
   return (

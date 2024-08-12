@@ -1,0 +1,28 @@
+/* signupDrawer.css */
+
+/* Ensure the buttonColorLight class is applied to the correct button */
+button.buttonColorLight {
+    background-color: var(--accent) !important; /* Use !important to override other styles if needed */
+    color: var(--dark) !important; /* Ensures text is readable */
+}
+
+button.buttonColorLight:hover {
+    background-color: var(--med) !important;
+    color: var(--accent) !important; /* Ensures text is readable */
+    box-shadow: 0 0 9px rgba(255, 255, 255, 0.5) !important; /* Softer, faded shadow */
+    outline: none !important; /* Remove default focus outline */
+}
+
+
+button.buttonColorDark {
+    background-color: var(--med) !important;
+    color: var(--accent) !important; /* Ensures text is readable */
+     /* Darker shade for hover effect */
+}
+
+button.buttonColorDark:hover {
+    background-color: var(--accent) !important; /* Use !important to override other styles if needed */
+    color: var(--dark) !important; /* Ensures text is readable */
+    box-shadow: 0 0 9px rgba(255, 255, 255, 0.5) !important; /* Softer, faded shadow */
+    outline: none !important; /* Remove default focus outline */
+}
