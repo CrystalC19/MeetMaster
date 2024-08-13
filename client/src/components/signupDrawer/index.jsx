@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client';
 import { CREATE_USER } from '../../utils/mutations';
 import {
   Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerOverlay,
-  DrawerContent, DrawerCloseButton, Button, Input, useDisclosure
+  DrawerContent, DrawerCloseButton, Button, Input, useDisclosure, useToast
 } from '@chakra-ui/react';
 
 const SignupDrawer = () => {
