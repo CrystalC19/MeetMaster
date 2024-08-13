@@ -1,79 +1,50 @@
 import React from 'react';
 import {
-  VStack, Box, Heading, Text, Image, Stack, Divider, CardFooter,
-  ButtonGroup, Button, Accordion, AccordionItem, AccordionButton,
-  AccordionPanel, AccordionIcon, Card, CardBody
+  VStack, Box, Heading, Text, Stack, Divider, CardFooter,
+  ButtonGroup, Button, Card, CardBody
 } from '@chakra-ui/react';
+import { useQuery } from '@apollo/client';
+import { QUERY_EVENTS } from '../../../utils/queries';
 import './eventlist.css';
 
-const eventList = [
-  // Example data
-  {
-    id: 1,
-    title: 'Living room Sofa',
-    description: 'This sofa is perfect for modern tropical spaces...',
-    price: '$450',
-    address: 'really dont wanna do queries',
-    imageUrl: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-  },
-  {
-    id: 2,
-    title: 'Office Chair',
-    description: 'A comfortable office chair for working from home...',
-    price: '$150',
-    address: 'what do our models look like',
-    imageUrl: 'https://images.unsplash.com/photo-1560493672-04071c5f467b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1770&q=80',
-  },
-  // Add more events here
-];
+const EventList = ({ onSelectEvent }) => {
+  // Fetch events using useQuery hook
+  const { loading, error, data } = useQuery(QUERY_EVENTS);
 
-const EventList = () => {
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error loading events: {error.message}</p>;
+
+  // Extract events from the data and reverse the order
+  const eventList = (data?.events || []).slice().reverse();
+
   return (
     <VStack className="eventList" spacing={4} width="100%">
       {eventList.map(event => (
-        <Card className="card" key={event.id}>
+        <Card
+          className="card"
+          key={event._id}  // Use _id from your event model
+          onClick={() => {
+            console.log('Event clicked:', event); // Log the event to the console
+            onSelectEvent(event);
+          }}
+          cursor="pointer"
+        >
           <CardBody className="cardBody">
-            {/* Image Section */}
-            <Image
-              src={event.imageUrl}
-              alt={event.title}
-              borderRadius="lg"
-              width="100%"
-            />
-
             <Stack mt="6" spacing="3">
-              {/* Accordion for Title and Address */}
+              {/* Title and Address */}
               <Box>
-                <Accordion allowToggle>
-                  <AccordionItem border="none">
-                    <h2>
-                      <AccordionButton>
-                        <Box flex="1" textAlign="center">
-                          <Heading size="md">{event.title}</Heading>
-                        </Box>
-                        <AccordionIcon />
-                      </AccordionButton>
-                    </h2>
-                    <AccordionPanel pb={4}>
-                      {event.address}
-                    </AccordionPanel>
-                  </AccordionItem>
-                </Accordion>
+                <Heading size="md">{event.title}</Heading>
               </Box>
-
               {/* Description and Price */}
               <Text>{event.description}</Text>
-              <Text color="blue.600" fontSize="2xl">{event.price}</Text>
+              <Text>{event.address}</Text> {/* Display the event's address */}
+              <Text color="blue.600" fontSize="2xl">${event.amount}</Text> {/* Display the event's amount */}
             </Stack>
           </CardBody>
-
           <Divider />
-
-          {/* Footer with Buttons */}
           <CardFooter>
             <ButtonGroup spacing="2">
-              <Button variant="solid" colorScheme="blue">Buy now</Button>
-              <Button variant="ghost" colorScheme="blue">Add to cart</Button>
+              <Button variant="ghost" colorScheme="blue">View</Button>
             </ButtonGroup>
           </CardFooter>
         </Card>

@@ -5,6 +5,8 @@ import {
   Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerOverlay,
   DrawerContent, DrawerCloseButton, Button, Input, useDisclosure, useToast
 } from '@chakra-ui/react';
+import './signupDrawer.css';
+
 
 const SignupDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -18,6 +20,7 @@ const SignupDrawer = () => {
   const handleSubmit = async () => {
     try {
       const response = await createUser({ variables: { email, password } });
+
   //     console.log('Registration successful', response);
   //     onClose();
   //   } catch (e) {
@@ -52,12 +55,18 @@ const SignupDrawer = () => {
         duration: 5000,
         isClosable: true,
       });
+
+    //  console.log('Registration successful', response);
+    ///  onClose();
+   // } catch (error) {
+     // console.error('Mutation error:', JSON.stringify(error, null, 2));
+
     }
   };
 
   return (
     <>
-      <Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
+      <Button ref={btnRef} className='buttonColorLight' onClick={onOpen}>
         Sign Up
       </Button>
       <Drawer

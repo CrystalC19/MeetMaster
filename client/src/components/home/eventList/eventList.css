@@ -1,14 +1,18 @@
 /* src/components/home/eventList/eventlist.css */
-
-/* Style for the container */
 .eventList {
-  height: 100%;
-  padding: 0; /* Ensure no padding is applied to the list */
+  width: 100%;
+  height: 100%; /* Ensure the event list takes up the full height */
 }
 
-/* Style for each event card */
 .card {
   width: 100%;
+  margin-bottom: 10px; /* Add margin-bottom */
+}
+
+
+/* Specific Chakra UI class overrides */
+.chakra-card.card {
+  background-color: var(--accent) !important; /* Ensure the background color is applied */
 }
 
 .cardBody {
@@ -16,12 +20,11 @@
 }
 
 .cardImage {
-  border-radius: 0.5rem;
-  width: 100%;
+  display: none; /* Hide the image if it's not needed */
 }
 
 .accordionPanel {
-  padding-bottom: 1rem;
+  display: none; /* Hide accordion content if it's not needed */
 }
 
 .priceText {
@@ -31,21 +34,4 @@
 
 .cardFooter {
   padding-top: 1rem;
-}
-
-/* Style for the event list container */
-.eventListContainer {
-  height: 100%;
-  overflow-y: auto;
-  padding: 0; /* Remove padding from the container */
-}
-
-/* Hide scrollbar but allow scrolling */
-.eventListContainer::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
-}
-
-.eventListContainer {
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
 }

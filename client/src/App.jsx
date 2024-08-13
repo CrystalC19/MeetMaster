@@ -2,6 +2,7 @@ import React from 'react';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { Outlet, useLocation } from 'react-router-dom';
 import { ChakraProvider, Box, Flex } from '@chakra-ui/react';
+
 import Header from './components/header';
 import Navbar from './components/navbar';
 import Footer from './components/footer';
@@ -9,7 +10,7 @@ import './App.css';
 
 // Create an instance of ApolloClient
 const client = new ApolloClient({
-  uri: 'http://localhost:3000/graphql',
+  uri: 'http://localhost:3001/graphql',
   cache: new InMemoryCache(),
 });
 

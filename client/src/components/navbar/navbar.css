@@ -1,15 +1,8 @@
 /* Styling for Navbar buttons */
 .navbar-button {
-    color: white;
-    background-color: #38b2ac; 
     border-radius: 9999px; 
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     padding: 8px 16px;
     transition: background-color 0.3s, box-shadow 0.3s; 
-  }
-  
-  .navbar-button:hover {
-    background-color: #2c7a7b; 
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); 
   }
   

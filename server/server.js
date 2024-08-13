@@ -5,14 +5,17 @@ const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
-
 const jwt = require('jsonwebtoken'); // Import jsonwebtoken
 
 //const jwt = require('jsonwebtoken'); // Import jsonwebtoken
 const User = require('./models/User'); // Import User model
+
 //const authMiddleware = require ('./utils/auth');
 
 const { authMiddleware } = require('./utils/auth');
+
+
+const cors = require('cors'); // Import the cors package
 
 
 const app = express();
@@ -26,6 +29,7 @@ const server = new ApolloServer({
     const token = req.headers.authorization || '';
     if (token) {
       try {
+
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const user = await User.findById(decoded.id);
         return { user };
@@ -57,14 +61,21 @@ const server = new ApolloServer({
 const startApolloServer = async () => {
   await server.start();
 
+  // Use CORS middleware
+  app.use(cors({
+    origin: 'http://localhost:3000', // Allow requests from the client
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  }));
+  
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
+
 
   // Use Apollo middleware before static files middleware
   app.use('/graphql', expressMiddleware(server, {
     context: authMiddleware
   }));
-
   // Serve static files in both development and production
   const staticPath = path.join(__dirname, '../client/dist');
   console.log('Serving static files from:', staticPath);
