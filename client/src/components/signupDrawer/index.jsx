@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { CREATE_USER } from '../../utils/mutations';
+import Auth from '../../utils/authContext'
 import {
   Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerOverlay,
   DrawerContent, DrawerCloseButton, Button, Input, useDisclosure, useToast
 } from '@chakra-ui/react';
+
 import './signupDrawer.css';
 
 
@@ -12,28 +14,37 @@ const SignupDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   const toast = useToast(); // For showing feedback messages
+  // const { login } = useAuth(); // Use the login method from Auth context
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [createUser, { data, loading, error }] = useMutation(CREATE_USER);
+  const [createUser] = useMutation(CREATE_USER);
 
-  const handleSubmit = async () => {
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!email || !password) {
+      toast({
+        title: 'Input error.',
+        description: 'Email and password are required.',
+        status: 'warning',
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
+    }
+
     try {
-      const response = await createUser({ variables: { email, password } });
+      const { data } = await createUser({
+        variables: { email, password },
+      });
 
-  //     console.log('Registration successful', response);
-  //     onClose();
-  //   } catch (e) {
-  //     console.error('error', e);
-  //   }
-  // };
-  const { token } = response.data.createUser;
+      const { token } = data.createUser;
 
       if (token) {
-        // Save the token to local storage
-        localStorage.setItem('token', token);
+        Auth.login(token);
 
-        // Show success message
         toast({
           title: 'Registration successful.',
           description: 'You have been registered and logged in.',
@@ -45,9 +56,16 @@ const SignupDrawer = () => {
         onClose();
       }
     } catch (e) {
-      console.error('Registration error', e);
+      console.error('Registration error:', e);
 
-      // Show error message
+      if (e.networkError) {
+        console.error('Network error:', e.networkError);
+      }
+
+      if (e.graphQLErrors) {
+        console.error('GraphQL errors:', e.graphQLErrors);
+      }
+
       toast({
         title: 'Registration failed.',
         description: 'Please check your information and try again.',
@@ -55,14 +73,10 @@ const SignupDrawer = () => {
         duration: 5000,
         isClosable: true,
       });
-
-    //  console.log('Registration successful', response);
-    ///  onClose();
-   // } catch (error) {
-     // console.error('Mutation error:', JSON.stringify(error, null, 2));
-
     }
   };
+
+  
 
   return (
     <>

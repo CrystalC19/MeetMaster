@@ -7,15 +7,6 @@ const typeDefs = gql`
     password: String!
   }
 
-
-//   type Query {
-//     users: [User]
-//     user(id: ID!): User
-//     events: [Event]
-//     event(id: ID!): Event
-
-//   }
-
   type Auth {
     token: ID!
     user: User
@@ -55,6 +46,7 @@ input CreateEventInput {
       date: String!
       address: String!
     ): Event
+    logout: Boolean 
   }
 `;
 

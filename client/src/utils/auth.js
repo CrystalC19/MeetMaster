@@ -1,36 +1,34 @@
-
-// use this to decode a token and get the user's information out of it
 import decode from 'jwt-decode';
 
-// create a new class to instantiate for a user
 class AuthService {
-  // get user data from JSON web token by decoding it
-  getProfile() {
-    return decode(this.getToken());
+  // Save the token to localStorage
+  login(token) {
+    localStorage.setItem('token', token);
+    // Optionally, you can redirect or reload the page
+    window.location.assign('/'); // Redirect to home or dashboard after login
   }
 
-  // return `true` or `false` if token exists (does not verify if it's expired yet)
-  loggedIn() {
-    const token = this.getToken();
-    return token ? true : false;
+  // Remove the token from localStorage and reload the page
+  logout() {
+    localStorage.removeItem('token');
+    window.location.reload(); // Reload to update the application state
   }
 
+  // Get the token from localStorage
   getToken() {
-    // Retrieves the user token from localStorage
     return localStorage.getItem('token');
   }
 
-  login(idToken) {
-    // Saves user token to localStorage and reloads the application for logged in status to take effect
-    localStorage.setItem('token', idToken);
-    window.location.assign('/');
+  // Decode the token to get user data
+  getUser() {
+    const token = this.getToken();
+    return token ? decode(token) : null;
   }
 
-  logout() {
-    // Clear user token and profile data from localStorage
-    localStorage.removeItem('token');
-    // this will reload the page and reset the state of the application
-    window.location.reload();
+  // Check if the user is logged in
+  loggedIn() {
+    const token = this.getToken();
+    return token ? true : false;
   }
 }
 

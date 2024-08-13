@@ -43,4 +43,3 @@ export const QUERY_EVENT = gql`
     }
   }
 `;
-

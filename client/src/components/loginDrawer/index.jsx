@@ -1,31 +1,26 @@
 import React, { useState } from 'react';
-import { LOGIN_USER } from "../../utils/mutations";'@apollo/client';
+import { LOGIN_USER } from "../../utils/mutations";
 import { useMutation } from '@apollo/client';
-import  AuthService from '../../utils/auth';
+import AuthService from '../../utils/auth';
 import {
   Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerOverlay,
   DrawerContent, DrawerCloseButton, Button, Input, useDisclosure, useToast
 } from '@chakra-ui/react';
-
+import { useNavigate } from 'react-router-dom';
 
 const LoginDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const toast = useToast(); // For showing feedback messages
+  const toast = useToast();
+  const navigate = useNavigate();
 
-
-  const [loginUser] = useMutation(LOGIN_USER, {
+  const [loginUser, { loading: loginLoading }] = useMutation(LOGIN_USER, {
     onCompleted: (data) => {
-      // Assuming the token is returned in data.login.token
       const { token } = data.login;
-
-      // Save token to local storage
-      //localStorage.setItem('token', token);
       AuthService.login(token);
 
-      // Show success message
       toast({
         title: 'Login successful.',
         description: 'You have been logged in.',
@@ -34,14 +29,11 @@ const LoginDrawer = () => {
         isClosable: true,
       });
 
-      // Close the drawer
       onClose();
-
-      // Optionally, redirect or update the state
-      // window.location.href = '/dashboard'; // Redirect example
+      navigate('/');
     },
     onError: (error) => {
-      // Handle error
+      console.error('Login error:', error);
       toast({
         title: 'Login failed.',
         description: 'Please check your credentials and try again.',
@@ -52,10 +44,24 @@ const LoginDrawer = () => {
     }
   });
 
-  const handleLogin = () => {
-    loginUser({ variables: { username, password } });
-  };
+  const handleLogin = async () => {
+    if (!email || !password) {
+      toast({
+        title: 'Missing fields.',
+        description: 'Please provide both email and password.',
+        status: 'warning',
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
+    }
 
+    try {
+      await loginUser({ variables: { email, password } });
+    } catch (error) {
+      // Error handling is done in onError callback
+    }
+  };
 
   return (
     <>
@@ -73,16 +79,26 @@ const LoginDrawer = () => {
           <DrawerCloseButton />
           <DrawerHeader>Login</DrawerHeader>
           <DrawerBody>
-            <Input placeholder="Username" mb={3}   value={username}
-              onChange={(e) => setUsername(e.target.value)}/>
-            <Input placeholder="Password" type="password"  value={password}
-              onChange={(e) => setPassword(e.target.value)}/>
+            <Input 
+              placeholder="Email" 
+              mb={3} 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Input 
+              placeholder="Password" 
+              type="password"  
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </DrawerBody>
           <DrawerFooter>
             <Button variant="outline" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button colorScheme="blue" onClick={handleLogin}>Submit</Button>
+            <Button colorScheme="blue" onClick={handleLogin} isLoading={loginLoading}>
+              Submit
+            </Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

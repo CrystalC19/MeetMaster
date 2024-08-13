@@ -1,10 +1,7 @@
 require('dotenv').config({path: `${__dirname}/../../.env`});
 const { GraphQLError } = require('graphql');
 const jwt = require('jsonwebtoken');
-//require('dotenv').config();
-// secret key to code and decode string
-// const secret = 'mysecretssshhhhhhh';
-// const expiration = '2h';
+
 const jwtSecret = process.env.JWT_SECRET;
 console.log("jwtSecret", jwtSecret)
 if (!jwtSecret) {
@@ -42,9 +39,9 @@ module.exports = {
     // return the request object so it can be passed to the resolver as `context`
     return req;
   },
-  signToken: function ({ email, name, _id }) {
-    const payload = { email, name, _id };
-    return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
+  signToken: function ({ user }) {
+    const payload = {  email: user.email, name: user.name, _id: user._id  };
+    return jwt.sign({ data: payload }, jwtSecret, { expiresIn: expiration });
   },
 
 
