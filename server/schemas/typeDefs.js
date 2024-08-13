@@ -7,20 +7,11 @@ const typeDefs = gql`
     password: String!
   }
 
-
-//   type Query {
-//     users: [User]
-//     user(id: ID!): User
-//     events: [Event]
-//     event(id: ID!): Event
-
-//   }
-
   type Auth {
     token: ID!
     user: User
   }
-      type Query {
+  type Query {
     listUsers: [User]
     getUser(userId: ID!): User
     events: [Event]
@@ -36,12 +27,12 @@ const typeDefs = gql`
     address: String!
   }
 
-input CreateEventInput {
-  title: String!
-  description: String!
-  datetime: String!
-  amount: Float!
-  address: String!
+  input CreateEventInput {
+    title: String!
+    description: String!
+    datetime: String!
+    amount: Float!
+    address: String!
 }
 
 

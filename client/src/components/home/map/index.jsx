@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import './map.css';
 
+// Define options for the Google Map
 const options = {
   fullscreenControl: false, 
   zoomControl: true,
@@ -12,9 +13,11 @@ const options = {
   gestureHandling: 'auto', 
 };
 
+// Access the API key from the environment variable
+const MAP_API_KEY = import.meta.env.VITE_MAP_API_KEY;
+
 function MapComponent({ selectedEventLocation }) {
   const [center, setCenter] = useState({ lat: -3.745, lng: -38.523 });
-  const [locations, setLocations] = useState([]);
   const [activeMarker, setActiveMarker] = useState(null);
 
   useEffect(() => {
@@ -23,7 +26,6 @@ function MapComponent({ selectedEventLocation }) {
         lat: selectedEventLocation.lat,
         lng: selectedEventLocation.lng,
       });
-      // Adjust zoom level to ensure it's not too far out
     }
   }, [selectedEventLocation]);
 
@@ -33,22 +35,19 @@ function MapComponent({ selectedEventLocation }) {
 
   return (
     <div className="map-container">
-      <LoadScript googleMapsApiKey="AIzaSyD7dokCBpYsusuyt5lOP5ZB3eaCaWV5JEM">
+      <LoadScript googleMapsApiKey={MAP_API_KEY}>
         <GoogleMap
           mapContainerClassName="google-map"
           center={center}
           zoom={15} 
           options={options}
         >
-          {/* Add a marker for the selected event */}
           {selectedEventLocation && (
             <Marker
               position={center}
               onClick={() => handleMarkerClick({ id: 'selectedEvent' })}
             />
           )}
-          
-          {/* Render InfoWindow if needed */}
           {activeMarker === 'selectedEvent' && (
             <InfoWindow
               position={center}

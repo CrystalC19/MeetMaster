@@ -63,7 +63,7 @@ const startApolloServer = async () => {
 
   // Use CORS middleware
   app.use(cors({
-    origin: 'http://localhost:3000', // Allow requests from the client
+    origin: 'http://localhost:3002', // Allow requests from the client
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type', 'Authorization']
   }));
