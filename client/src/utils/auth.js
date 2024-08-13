@@ -1,42 +1,37 @@
-// Login and Store JWT
-//In your login component, make a request to the backend and store the JWT in local storage or context:
-import React, { useState } from 'react';
-import axios from 'axios';
 
-const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+// use this to decode a token and get the user's information out of it
+import decode from 'jwt-decode';
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('/api/auth/login', { email, password });
-            localStorage.setItem('token', response.data.token); // Store JWT
-            // Redirect or update UI as needed
-        } catch (error) {
-            console.error('Error logging in', error);
-        }
-    };
+// create a new class to instantiate for a user
+class AuthService {
+  // get user data from JSON web token by decoding it
+  getProfile() {
+    return decode(this.getToken());
+  }
 
-    return (
-        <form onSubmit={handleLogin}>
-            <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
-                required
-            />
-            <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-                required
-            />
-            <button type="submit">Login</button>
-        </form>
-    );
-};
+  // return `true` or `false` if token exists (does not verify if it's expired yet)
+  loggedIn() {
+    const token = this.getToken();
+    return token ? true : false;
+  }
 
-export default Login;
+  getToken() {
+    // Retrieves the user token from localStorage
+    return localStorage.getItem('token');
+  }
+
+  login(idToken) {
+    // Saves user token to localStorage and reloads the application for logged in status to take effect
+    localStorage.setItem('token', idToken);
+    window.location.assign('/');
+  }
+
+  logout() {
+    // Clear user token and profile data from localStorage
+    localStorage.removeItem('token');
+    // this will reload the page and reset the state of the application
+    window.location.reload();
+  }
+}
+
+export default new AuthService();

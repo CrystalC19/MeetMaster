@@ -7,16 +7,24 @@ const typeDefs = gql`
     password: String!
   }
 
-  type Query {
-    users: [User]
-    user(id: ID!): User
-    events: [Event]
-    event(id: ID!): Event
-  }
+
+//   type Query {
+//     users: [User]
+//     user(id: ID!): User
+//     events: [Event]
+//     event(id: ID!): Event
+
+//   }
 
   type Auth {
-    token: String
+    token: ID!
     user: User
+  }
+      type Query {
+    listUsers: [User]
+    getUser(userId: ID!): User
+    events: [Event]
+    event(id: ID!): Event
   }
 
   type Event {

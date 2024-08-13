@@ -1,8 +1,16 @@
+require('dotenv').config({path: `${__dirname}/../../.env`});
 const { GraphQLError } = require('graphql');
 const jwt = require('jsonwebtoken');
-
-const secret = 'mysecretssshhhhhhh';
-const expiration = '2h';
+//require('dotenv').config();
+// secret key to code and decode string
+// const secret = 'mysecretssshhhhhhh';
+// const expiration = '2h';
+const jwtSecret = process.env.JWT_SECRET;
+console.log("jwtSecret", jwtSecret)
+if (!jwtSecret) {
+  throw new Error('JWT_SECRET environment variable is not set');
+}
+const expiration = '2h'; // Token expiration time
 
 module.exports = {
   AuthenticationError: new GraphQLError('Could not authenticate user.', {
@@ -25,7 +33,7 @@ module.exports = {
 
     // if token can be verified, add the decoded user's data to the request so it can be accessed in the resolver
     try {
-      const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      const { data } = jwt.verify(token, jwtSecret, { maxAge: expiration });
       req.user = data;
     } catch {
       console.log('Invalid token');
