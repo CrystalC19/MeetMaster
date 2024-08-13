@@ -1,12 +1,23 @@
 import React from 'react';
 import { Card, CardHeader, CardFooter, CardBody, Stack, StackDivider, Box, Heading, Text, Button, Image } from '@chakra-ui/react';
 import './activeEvent.css';
+import { useNavigate } from 'react-router-dom';
+//import PaymentModal from './PaymentModal';
+
 
 const ActiveEvent = ({ event }) => {
   if (!event) {
     return <Heading size="lg">Welcome</Heading>;
   }
 
+
+  //Added payment page redirect.
+const navigate = useNavigate();
+
+const handleBtnClick = () => {
+navigate('/payment')
+
+}
   // Function to format the date
   const formatDate = (timestamp) => {
     const date = new Date(parseInt(timestamp, 10)); // Convert timestamp to Date object
@@ -46,7 +57,7 @@ const ActiveEvent = ({ event }) => {
           </Stack>
         </CardBody>
         <CardFooter>
-          <Button variant="solid" colorScheme="blue">
+          <Button variant="solid" colorScheme="blue" onClick={handleBtnClick}>
             Take Action
           </Button>
         </CardFooter>

@@ -4,6 +4,7 @@ import App from './App.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './components/home/index.jsx';
 import MapPage from './pages/MapPage.jsx';
+import CheckoutForm from './components/home/Payment/index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
         index: true,
         element: <Home />,
       },
+      {
+        path: 'payment',
+        element: <CheckoutForm />
+      }
     ],
   },
 ]);

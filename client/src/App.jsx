@@ -6,7 +6,14 @@ import { ChakraProvider, Box, Flex } from '@chakra-ui/react';
 import Header from './components/header';
 import Navbar from './components/navbar';
 import Footer from './components/footer';
+import CheckoutForm from './components/home/Payment';
 import './App.css';
+import { Elements } from '@stripe/react-stripe-js'; 
+import { loadStripe } from '@stripe/stripe-js';
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
+
+
 
 // Create an instance of ApolloClient
 const client = new ApolloClient({
@@ -20,6 +27,7 @@ function App() {
   return (
     <ChakraProvider>
       <ApolloProvider client={client}>
+      <Elements stripe={stripePromise}>
         <Flex direction="column" height="100vh">
           <Box height="8vh">
             <Header>
@@ -33,6 +41,7 @@ function App() {
             <Footer />
           </Box>
         </Flex>
+        </Elements>
       </ApolloProvider>
     </ChakraProvider>
   );
