@@ -69,4 +69,12 @@ Use Postman or cURL to test the CRUD operations:
  - Update Event: PUT /api/events/:id
  - Delete Event: DELETE /api/events/:id
 
-### GraphQL API is available at:
+### GraphQL Endpoint
+The GraphQL API is available at:
+   ```bash
+   http://localhost:3001/graphql
+```
+If enabled, you can interact with it using a GraphQL client like Apollo Client or the GraphQL Playground.
+
+### Contributing
+Contributions are welcome! Please fork the repository and submit a pull request with your changes. Ensure that your code is well-documented and follows the existing coding conventions.
