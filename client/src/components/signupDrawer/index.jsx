@@ -9,6 +9,7 @@ import {
 const SignupDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
+  const toast = useToast(); // For showing feedback messages
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,10 +18,40 @@ const SignupDrawer = () => {
   const handleSubmit = async () => {
     try {
       const response = await createUser({ variables: { email, password } });
-      console.log('Registration successful', response);
-      onClose();
+  //     console.log('Registration successful', response);
+  //     onClose();
+  //   } catch (e) {
+  //     console.error('error', e);
+  //   }
+  // };
+  const { token } = response.data.createUser;
+
+      if (token) {
+        // Save the token to local storage
+        localStorage.setItem('token', token);
+
+        // Show success message
+        toast({
+          title: 'Registration successful.',
+          description: 'You have been registered and logged in.',
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        });
+
+        onClose();
+      }
     } catch (e) {
-      console.error('error', e);
+      console.error('Registration error', e);
+
+      // Show error message
+      toast({
+        title: 'Registration failed.',
+        description: 'Please check your information and try again.',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
     }
   };
 

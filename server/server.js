@@ -6,7 +6,7 @@ const db = require('./config/connection');
 const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
 
-
+const jwt = require('jsonwebtoken'); // Import jsonwebtoken
 
 //const jwt = require('jsonwebtoken'); // Import jsonwebtoken
 const User = require('./models/User'); // Import User model
