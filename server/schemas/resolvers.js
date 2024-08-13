@@ -59,7 +59,7 @@ const resolvers = {
           throw new Error('Failed to log in');
         }
       },
-      
+
     createEvent: async (_, { title, description, amount, date, address }) => {
       const newEvent = new Event({
         title,

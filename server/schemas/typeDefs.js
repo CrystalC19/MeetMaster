@@ -11,7 +11,7 @@ const typeDefs = gql`
     token: ID!
     user: User
   }
-      type Query {
+  type Query {
     listUsers: [User]
     getUser(userId: ID!): User
     events: [Event]
@@ -27,12 +27,12 @@ const typeDefs = gql`
     address: String!
   }
 
-input CreateEventInput {
-  title: String!
-  description: String!
-  datetime: String!
-  amount: Float!
-  address: String!
+  input CreateEventInput {
+    title: String!
+    description: String!
+    datetime: String!
+    amount: Float!
+    address: String!
 }
 
 
