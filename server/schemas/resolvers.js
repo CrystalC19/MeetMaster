@@ -72,8 +72,6 @@ const resolvers = {
       //debug
       console.log('Password comparison result:', correctPw);
 
-
-=======
 //       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {

@@ -1,7 +1,7 @@
-// src/utils/geocode.js
 import axios from 'axios';
 
-const API_KEY = 'AIzaSyD7dokCBpYsusuyt5lOP5ZB3eaCaWV5JEM';
+// Access the API key from the environment variable
+const API_KEY = import.meta.env.VITE_GEOCODE_API_KEY;
 
 export const geocodeAddress = async (address) => {
   console.log('Geocoding address:', address); // Log the address being geocoded
