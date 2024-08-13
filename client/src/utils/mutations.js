@@ -1,25 +1,24 @@
 import { gql } from '@apollo/client';
 
-// User mutations
+
 export const CREATE_USER = gql`
-  mutation createUser($email: String!, $password: String!) {
+  mutation CreateUser($email: String!, $password: String!) {
     createUser(email: $email, password: $password) {
       token
-      user {
-        _id
-        email
-        password
+     
       }
-    }
+    
   }
 `;
 
+
 export const LOGIN_USER = gql`
-  mutation login($email: String!, $password: String!) {
+  mutation LoginUser($email: String!, $password: String!) {
     login(email: $email, password: $password) {
       token
       user {
         _id
+        name
         email
       }
     }
@@ -37,5 +36,12 @@ export const CREATE_EVENT = gql`
       date
       address
     }
+  }
+`;
+
+//Define the GraphQL mutation for logging out
+export const LOGOUT = gql`
+  mutation Logout {
+    logout
   }
 `;

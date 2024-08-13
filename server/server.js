@@ -6,15 +6,8 @@ const db = require('./config/connection');
 const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
 const jwt = require('jsonwebtoken'); // Import jsonwebtoken
-
-//const jwt = require('jsonwebtoken'); // Import jsonwebtoken
 const User = require('./models/User'); // Import User model
-
-//const authMiddleware = require ('./utils/auth');
-
 const { authMiddleware } = require('./utils/auth');
-
-
 const cors = require('cors'); // Import the cors package
 
 
@@ -29,7 +22,6 @@ const server = new ApolloServer({
     const token = req.headers.authorization || '';
     if (token) {
       try {
-
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const user = await User.findById(decoded.id);
         return { user };

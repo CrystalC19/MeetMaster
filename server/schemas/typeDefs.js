@@ -46,6 +46,7 @@ const typeDefs = gql`
       date: String!
       address: String!
     ): Event
+    logout: Boolean 
   }
 `;
 
