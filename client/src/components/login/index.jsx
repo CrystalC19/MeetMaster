@@ -1,6 +1,6 @@
 // src/components/Login.jsx
 import React from 'react';
-import './Login.css'; // Import the CSS file
+import './login.css'; // Import the CSS file
 
 function Login() {
   return (
