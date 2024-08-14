@@ -5,7 +5,7 @@ import {
 } from '@chakra-ui/react';
 import { useQuery } from '@apollo/client';
 import { QUERY_EVENTS } from '../../../utils/queries';
-import './eventlist.css';
+import './eventList.css';
 
 const EventList = ({ onSelectEvent }) => {
   // Fetch events using useQuery hook
