@@ -69,16 +69,16 @@ const startApolloServer = async () => {
     context: authMiddleware
   }));
   // Serve static files in both development and production
-  const staticPath = path.join(__dirname, '../client/dist');
+  const staticPath = path.join(__dirname, '../client/public');
   console.log('Serving static files from:', staticPath);
 
   app.use(express.static(staticPath));
 
-  app.get('*', (req, res) => {
-    const indexPath = path.join(staticPath, 'index.html');
-    console.log('Sending index.html from:', indexPath);
-    res.sendFile(indexPath);
-  });
+  // app.get('*', (req, res) => {
+  //   const indexPath = path.join(staticPath, 'index.html');
+  //   console.log('Sending index.html from:', indexPath);
+  //   res.sendFile(indexPath);
+  // });
 
   db.once('open', () => {
     app.listen(PORT, () => {
