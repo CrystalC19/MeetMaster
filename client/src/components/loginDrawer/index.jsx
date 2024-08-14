@@ -13,7 +13,7 @@ const LoginDrawer = () => {
   const btnRef = React.useRef();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const toast = useToast();
+  const toast = useToast()
   const navigate = useNavigate();
 
   const [loginUser, { loading: loginLoading }] = useMutation(LOGIN_USER, {
@@ -28,9 +28,11 @@ const LoginDrawer = () => {
         duration: 5000,
         isClosable: true,
       });
+      navigate('/home'); // Redirect to login if not logged in
 
       onClose();
-      navigate('/');
+      console.log("Completed")
+
     },
     onError: (error) => {
       console.error('Login error:', error);

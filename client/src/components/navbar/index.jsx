@@ -1,13 +1,15 @@
+// src/components/navbar/Navbar.jsx
 import React from 'react';
-import { Flex, Box, Button } from '@chakra-ui/react';
+import { Flex, Box, Button, HStack, Avatar } from '@chakra-ui/react';
 import { useMutation } from '@apollo/client';
-import { LOGOUT } from '../../utils/mutations'; // Adjust the import path as needed
-import LoginDrawer from '../loginDrawer'; // Adjust the import path as needed
-import SignupDrawer from '../signupDrawer'; // Adjust the import path as needed
-import AddEvent from '../addEvent/index'; // Adjust the import path as needed
-import './navbar.css'; 
-import Auth from '../../utils/authContext'; // Adjust the import path as needed
-import { useNavigate } from 'react-router-dom'; // For client-side navigation
+import { LOGOUT } from '../../utils/mutations';
+import LoginDrawer from '../loginDrawer';
+import SignupDrawer from '../signupDrawer';
+import AddEvent from '../addEvent/index';
+import ProfilePopover from './ProfilePopover'; // Updated import path
+import './navbar.css';
+import Auth from '../../utils/auth';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [logoutMutation, { loading: logoutLoading, error: logoutError }] = useMutation(LOGOUT);
@@ -15,11 +17,11 @@ const Navbar = () => {
 
   const handleLogout = async (event) => {
     event.preventDefault();
-    if (Auth.isLoggedIn()) {
+    if (Auth.loggedIn()) {
       try {
-        await logoutMutation(); // Call the GraphQL logout mutation
+        await logoutMutation();
         Auth.logout();
-        navigate('/'); // Redirect to home or login page after logout
+        navigate('/login');
       } catch (err) {
         console.error('Logout error:', err);
         if (err.graphQLErrors) {
@@ -38,9 +40,10 @@ const Navbar = () => {
     <Box color="white">
       <Flex justify="center">
         <Box mx={4}>
-          {Auth.isLoggedIn() ? (
-            <>
-              <AddEvent /> {/* Only show AddEvent button if logged in */}
+          {Auth.loggedIn() ? (
+            <HStack spacing={4}>
+              <ProfilePopover /> {/* Add ProfilePopover here */}
+              <AddEvent />
               <Button
                 className="buttonColorLight"
                 onClick={handleLogout}
@@ -48,7 +51,7 @@ const Navbar = () => {
               >
                 Logout
               </Button>
-            </>
+            </HStack>
           ) : (
             <>
               <LoginDrawer />

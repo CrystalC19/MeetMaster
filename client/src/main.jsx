@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './components/home/index.jsx';
+import Login from './components/login/index.jsx';
 
-import MapPage from './pages/MapPage.jsx';
+// import MapPage from './pages/MapPage.jsx';
 import LoginDrawer from './components/loginDrawer/index.jsx';
 import SignupDrawer from './components/signupDrawer/index.jsx';
 
@@ -16,16 +17,25 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,
+        element: <Login />, 
+      },
+      {
+        path: '/home',
+        element: <Home />, 
       },
       {
         path: '/login',
-        element: <LoginDrawer/>
+        element: <Login />, 
       },
-      {
-        path: '/signup',
-        element: <SignupDrawer/>
-      }
+
+      // {
+      //   path: '/login',
+      //   element: <LoginDrawer/>
+      // },
+      // {
+      //   path: '/signup',
+      //   element: <SignupDrawer/>
+      // }
     ],
   },
 ]);

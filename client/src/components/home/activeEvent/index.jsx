@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardHeader, CardFooter, CardBody, Stack, StackDivider, Box, Heading, Text, Button, Image } from '@chakra-ui/react';
+import { Card, CardHeader, CardFooter, CardBody, Stack, StackDivider, Box, Heading, Text, Button } from '@chakra-ui/react';
 import './activeEvent.css';
 
 const ActiveEvent = ({ event }) => {
@@ -14,14 +14,13 @@ const ActiveEvent = ({ event }) => {
     return date.toLocaleString('en-US', options).replace(',', ' at');
   };
 
+  // Function to format the amount as USD
+  const formatAmount = (amount) => {
+    return `$${parseFloat(amount).toFixed(2)}`; // Convert amount to a number and format it as a dollar amount
+  };
+
   return (
     <Card className="activeEventCard" direction={{ base: 'column', sm: 'row' }} overflow="hidden">
-      <Image
-        className="activeEventImage"
-        objectFit="cover"
-        src={event.image || 'https://via.placeholder.com/800'} // Use event.image or a placeholder if not available
-        alt="Event"
-      />
       <Stack className="activeEventContent" spacing="4">
         <CardHeader>
           <Heading size="md" textAlign="left">{event.title}</Heading>
@@ -40,7 +39,7 @@ const ActiveEvent = ({ event }) => {
             </Box>
             <Box textAlign="left">
               <Text pt="2" fontSize="sm">
-                Hosted by: NEED TO TRACK USER
+                Cover charge: {formatAmount(event.amount)}
               </Text>
             </Box>
           </Stack>

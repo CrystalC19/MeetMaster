@@ -6,6 +6,7 @@ import {
   Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerOverlay,
   DrawerContent, DrawerCloseButton, Button, Input, useDisclosure, useToast
 } from '@chakra-ui/react';
+import { useNavigate } from "react-router-dom";
 
 import './signupDrawer.css';
 
@@ -15,6 +16,7 @@ const SignupDrawer = () => {
   const btnRef = React.useRef();
   const toast = useToast(); // For showing feedback messages
   // const { login } = useAuth(); // Use the login method from Auth context
+  const navigate = useNavigate();
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -54,6 +56,10 @@ const SignupDrawer = () => {
         });
 
         onClose();
+        navigate("/home");
+
+        ;
+
       }
     } catch (e) {
       console.error('Registration error:', e);

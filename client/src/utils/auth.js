@@ -5,13 +5,12 @@ class AuthService {
   login(token) {
     localStorage.setItem('token', token);
     // Optionally, you can redirect or reload the page
-    window.location.assign('/'); // Redirect to home or dashboard after login
   }
 
   // Remove the token from localStorage and reload the page
   logout() {
     localStorage.removeItem('token');
-    window.location.reload(); // Reload to update the application state
+    // window.location.reload(); 
   }
 
   // Get the token from localStorage
