@@ -10,6 +10,8 @@ if (!jwtSecret) {
 const expiration = '2h'; // Token expiration time
 
 module.exports = {
+  
+
   AuthenticationError: new GraphQLError('Could not authenticate user.', {
     extensions: {
       code: 'UNAUTHENTICATED',
@@ -39,12 +41,10 @@ module.exports = {
     // return the request object so it can be passed to the resolver as `context`
     return req;
   },
-  signToken: function ({ user }) {
-    const payload = {  email: user.email, name: user.name, _id: user._id  };
+  signToken: function ( user ) {
+    console.log("Auth User", user);
+    const payload = {  email: user.email, _id: user._id  };
     return jwt.sign({ data: payload }, jwtSecret, { expiresIn: expiration });
   },
-
-
-
 };
 

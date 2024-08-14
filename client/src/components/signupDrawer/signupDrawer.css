@@ -4,6 +4,7 @@
 button.buttonColorLight {
     background-color: var(--accent) !important; /* Use !important to override other styles if needed */
     color: var(--dark) !important; /* Ensures text is readable */
+    margin-left: 10px!important;
 }
 
 button.buttonColorLight:hover {
@@ -18,6 +19,7 @@ button.buttonColorDark {
     background-color: var(--med) !important;
     color: var(--accent) !important; /* Ensures text is readable */
      /* Darker shade for hover effect */
+     margin-left: 10px!important;
 }
 
 button.buttonColorDark:hover {

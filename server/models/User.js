@@ -6,7 +6,6 @@ const userSchema = new Schema({
     type: String,
     required: true,
     unique: true,
-    //match: [/.+@.+\..+/, 'Must match an email address!'],
   },
   password: {
     type: String,
@@ -16,13 +15,15 @@ const userSchema = new Schema({
 });
 
 // Pre-save middleware to hash the password before saving
-userSchema.pre('save', async function (next) {
-  if (this.isNew || this.isModified('password')) {
-    const saltRounds = 10;
-    this.password = await bcrypt.hash(this.password, saltRounds);
-  }
-  next();
-});
+// userSchema.pre('save', async function (next) {
+//   if (this.isNew || this.isModified('password')) {
+//     const saltRounds = 10;
+//     console.log("User Schema before", this.password);
+//     this.password = await bcrypt.hash(this.password, saltRounds);
+//     console.log("User Schema after", this.password);
+//   }
+//   next();
+// });
 
 // Method to compare and validate password during login
 userSchema.methods.comparePassword = async function (password) {

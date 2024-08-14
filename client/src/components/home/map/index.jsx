@@ -16,10 +16,10 @@ const options = {
 // Access the API key from the environment variable
 const MAP_API_KEY = import.meta.env.VITE_MAP_API_KEY;
 
-function MapComponent({ selectedEventLocation }) {
+function Map({ selectedEventLocation }) {
   const [center, setCenter] = useState({ lat: -3.745, lng: -38.523 });
   const [activeMarker, setActiveMarker] = useState(null);
-
+ 
   useEffect(() => {
     if (selectedEventLocation) {
       setCenter({
@@ -64,4 +64,4 @@ function MapComponent({ selectedEventLocation }) {
   );
 }
 
-export default MapComponent;
+export default Map;
