@@ -10,6 +10,7 @@ class AuthService {
   // Remove the token from localStorage and reload the page
   logout() {
     localStorage.removeItem('token');
+    
     // window.location.reload(); 
   }
 
