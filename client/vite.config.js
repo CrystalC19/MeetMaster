@@ -17,5 +17,13 @@ export default defineConfig({
     watch: {
       usePolling: true,
     },
+    proxy:{
+      '/graphql': {
+        target: 'http://localhost:3002',
+        secure: false,
+        changeOrigin: true
+      }
+
+    }
   },
 });

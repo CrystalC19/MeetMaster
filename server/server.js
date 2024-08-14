@@ -12,7 +12,7 @@ const cors = require('cors'); // Import the cors package
 
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 
 // Create an Apollo Server instance
 const server = new ApolloServer({
@@ -54,11 +54,11 @@ const startApolloServer = async () => {
   await server.start();
 
   // Use CORS middleware
-  app.use(cors({
-    origin: 'http://localhost:3002', // Allow requests from the client
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-  }));
+  // app.use(cors({
+  //   origin: 'http://localhost:3002', // Allow requests from the client
+  //   methods: ['GET', 'POST'],
+  //   allowedHeaders: ['Content-Type', 'Authorization']
+  // }));
   
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
