@@ -10,9 +10,10 @@ const User = require('./models/User'); // Import User model
 const { authMiddleware } = require('./utils/auth');
 const cors = require('cors'); // Import the cors package
 
+const mongoose = require('./config/connection'); // Import the connection module
 
 const app = express();
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3001;
 
 // Create an Apollo Server instance
 const server = new ApolloServer({

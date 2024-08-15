@@ -12,14 +12,14 @@ export default defineConfig({
     outDir: 'public'
   },
   server: {
-    port: 3002,
+    port: 3000,
     open: true,
     watch: {
       usePolling: true,
     },
     proxy:{
       '/graphql': {
-        target: 'http://localhost:3002',
+        target: 'http://localhost:3001',
         secure: false,
         changeOrigin: true
       }
